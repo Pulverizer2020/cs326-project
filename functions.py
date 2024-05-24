@@ -77,19 +77,17 @@ class ALSMatrixFactorization:
     
     def predict(self):
         """predict ratings for every user and item"""
-        pred = self.user_factors.dot(self.item_factors.T)
+        pred = self.user_factors @ self.item_factors.T
         return pred
     
     def get_training_mse(self):
         """calculate the mean square error between known rating values and their values in the reconstructed matrix"""
-        
         known_values = np.where(self.train != 0, True, False)
         mse = ((self.user_factors @ self.item_factors.T)[known_values] - self.train[known_values]) ** 2
         return np.average(mse)
     
     def get_training_mape(self):
         """calculate the mean absolute percentage error between known rating values and their values in the reconstructed matrix"""
-
         known_values = np.where(self.train != 0, True, False)
         mape = np.abs((self.user_factors @ self.item_factors.T)[known_values] - self.train[known_values]) / self.train[known_values]
         return np.average(mape) * 100
