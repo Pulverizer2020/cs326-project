@@ -25,6 +25,6 @@ def logMatrix(matrix):
 	for customerID in range(rows):
 		for productID in range(cols):
 			price = df_products[df_products['product_ID'] == productID]['price']
-			if squareMatrix[customerID][productID] != np.nan:
+			if logMatrix[customerID][productID] != np.nan:
 				logMatrix[customerID][productID] = logMatrix[customerID][productID] * np.log(price)
 	return logMatrix
