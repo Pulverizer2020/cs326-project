@@ -11,8 +11,8 @@ def squareMatrix(matrix):
 	rows = len(matrix)
 	cols = len(matrix[0])
 
-	for customerID in rows:
-		for productID in cols:
+	for customerID in range(rows):
+		for productID in range(cols):
 			if squareMatrix[customerID][productID] != np.nan:
 				squareMatrix[customerID][productID] = np.square(squareMatrix[customerID][productID])
 	return squareMatrix
@@ -22,9 +22,9 @@ def logMatrix(matrix):
 	rows = len(matrix)
 	cols = len(matrix[0])
 
-	for customerID in rows:
-		for productID in cols:
+	for customerID in range(rows):
+		for productID in range(cols):
 			price = df_products[df_products['product_ID'] == productID]['price']
-			if squareMatrix[customerID][productID] != np.nan:
+			if logMatrix[customerID][productID] != np.nan:
 				logMatrix[customerID][productID] = logMatrix[customerID][productID] * np.log(price)
 	return logMatrix

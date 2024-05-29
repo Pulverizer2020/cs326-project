@@ -1,7 +1,6 @@
 import numpy as np
 from sklearn.metrics import mean_squared_error
 
-
 def scales_mean_matrix_factorization(ratings: np.array):
     # determine the midpoint of the scale (avg of min and max)
     
@@ -91,4 +90,38 @@ class ALSMatrixFactorization:
         known_values = np.where(self.train != 0, True, False)
         mape = np.abs((self.user_factors @ self.item_factors.T)[known_values] - self.train[known_values]) / self.train[known_values]
         return np.average(mape) * 100
+    
+    def calculate_mse(actual, predicted):
+        """
+        Calculate Mean Squared Error (MSE) between actual and predicted ratings.
+        Only consider non-zero actual ratings.
+        
+        Parameters:
+        actual (np.array): Actual ratings matrix.
+        predicted (np.array): Predicted ratings matrix.
+        
+        Returns:
+        float: Mean Squared Error (MSE)
+        """
+        # Mask to consider only non-zero actual ratings
+        mask = actual != 0
+        mse = np.mean((actual[mask] - predicted[mask]) ** 2)
+        return mse
+    
+    def calculate_mape(actual, predicted):
+        """
+        Calculate Mean Absolute Percentage Error (MAPE) between actual and predicted ratings.
+        Only consider non-zero actual ratings.
+        
+        Parameters:
+        actual (np.array): Actual ratings matrix.
+        predicted (np.array): Predicted ratings matrix.
+        
+        Returns:
+        float: Mean Absolute Percentage Error (MAPE)
+        """
+        # Mask to consider only non-zero actual ratings
+        mask = actual != 0
+        mape = np.mean(np.abs((actual[mask] - predicted[mask]) / actual[mask])) * 100
+        return mape
 
